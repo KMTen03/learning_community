@@ -1,24 +1,36 @@
-# README
+# <!--ここにアプリ名を入力-->
+# ラーニングコミュニティ
+## サイト概要
+### サイトテーマ
+<!--何を『目的』とし、どのような『分類』なのかを簡潔に書く-->
+勉強を通じて交流を深めたり、競争できるコミュニティサイト
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+### テーマを選んだ理由
+<!--なぜこのようなテーマにしたかを説明する-->
+学生の頃に勉強するときは、友人と学習を進める機会が多く、一緒に勉強したり、テストで点数を競ったりしながらモチベーション管理ができていたと思います。しかし、社会人になると仲間がいないのがほぼ当たり前であり、自分でモチベーションの管理をしたり、必要であれば仲間を見つけることをするかと思います。
+私自身、社会人になってから勉強するときは、なにをどの程度進めていくのか分からなくなることが多くなってしまい、意識が続かないまま諦めてしまうことが多かったです。
+そこで、同じカテゴリに取り組んでいるコミュニティを探すことで、周りが毎日どのくらい勉強しているのか参考にして指針を立て、場合によってはコミュニティ内で競争しながら学習を進めていけるサイトがあれば便利ではないかと考えました。
 
-* Ruby version
+### ターゲットユーザ
+<!--誰に使ってもらうかを具体的に記載する-->
+- 資格取得を目指す人
+- 入学試験を控えている人
+- 同じ分野の学習の様子を知りたい人
 
-* System dependencies
+### 主な利用シーン
+<!--どのような時に使うのかの状況を記載すること-->
+- 一人での学習に限界を感じた時
+- 周りの勉強時間を知りたい時
+- 競い合える環境が欲しい時
+## 設計書
+<!--テーマを設定・提出する時点では不要です-->
 
-* Configuration
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+折りたたむ
