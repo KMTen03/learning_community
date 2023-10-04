@@ -1,47 +1,25 @@
 Rails.application.routes.draw do
-  devise_for :controllers
-  namespace :public do
-    get 'comments/create'
-    get 'comments/destroy'
-  end
-  namespace :public do
-    get 'likes/create'
-    get 'likes/destroy'
-  end
-  namespace :public do
-    get 'posts/new'
-    get 'posts/index'
-    get 'posts/show'
-    get 'posts/edit'
-    get 'posts/create'
-    get 'posts/update'
-    get 'posts/destroy'
-  end
-  namespace :admin do
-    get 'comments/index'
-    get 'comments/show'
-    get 'comments/edit'
-    get 'comments/update'
-  end
-  namespace :admin do
-    get 'posts/index'
-    get 'posts/show'
-    get 'posts/edit'
-    get 'posts/update'
-  end
-  namespace :admin do
-    get 'end_users/index'
-    get 'end_users/show'
-    get 'end_users/edit'
-    get 'end_users/update'
-  end
-  namespace :public do
-    get 'end_users/show'
-    get 'end_users/edit'
-    get 'end_users/update'
-    get 'end_users/withdraw'
-  end
   devise_for :admins
+  
   devise_for :end_users
+  
+  namespace :admin do
+    get '/' => 'homes#top', as: 'top'
+    resources :comments, only: [:index, :show, :edit, :update]
+    resources :posts, only: [:index, :show, :edit, :update]
+    resources :end_users, only: [:index, :show, :edit, :update]
+  end
+  
+  scope module: :public do
+    root to: 'homes#top'
+    get 'homes/top' => 'homes#top'
+    get 'homes/about' => 'homes#about', as: 'about'
+    resources :comments, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+    resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy]
+    resources :end_users, only: [:show, :edit, :update]
+    patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
+  end
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
