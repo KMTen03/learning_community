@@ -21,5 +21,6 @@ Rails.application.routes.draw do
     patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
   end
   
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
