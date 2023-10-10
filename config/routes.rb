@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :admins, skip: [:registrations, :passwords] ,controllers: {
-  sessions: "admin/sessions"
-}
 
-  devise_for :end_users: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
-}
-
+  devise_for :admins, controllers: {
+        sessions: 'admin/sessions'
+      }
+      
+  devise_for :end_users, controllers: {
+        sessions: 'public/sessions'
+      }
+      
   namespace :admin do
     get '/' => 'homes#top', as: 'top'
     resources :comments, only: [:index, :show, :edit, :update]
@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     resources :end_users, only: [:show, :edit, :update]
     patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
   end
-
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
