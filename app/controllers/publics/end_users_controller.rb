@@ -1,4 +1,4 @@
-class Public::EndUsersController < ApplicationController
+class Publics::EndUsersController < ApplicationController
   def show
   end
 

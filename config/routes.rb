@@ -1,21 +1,22 @@
 Rails.application.routes.draw do
 
   devise_for :admins, controllers: {
-        sessions: 'admin/sessions'
+        sessions: 'admins/sessions'
       }
       
   devise_for :end_users, controllers: {
-        sessions: 'public/sessions'
+        sessions: 'publics/sessions',
+        registrations: "publics/registrations"
       }
       
-  namespace :admin do
+  namespace :admins do
     get '/' => 'homes#top', as: 'top'
     resources :comments, only: [:index, :show, :edit, :update]
     resources :posts, only: [:index, :show, :edit, :update]
     resources :end_users, only: [:index, :show, :edit, :update]
   end
 
-  scope module: :public do
+  scope module: :publics do
     root to: 'homes#top'
     get 'homes/top' => 'homes#top'
     get 'homes/about' => 'homes#about', as: 'about'
