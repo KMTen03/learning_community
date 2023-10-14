@@ -1,0 +1,31 @@
+<h2>ユーザー情報</h2>
+<%#= image_tag user.get_profile_image(100,100) %>
+<table class="table">
+  <tbody>
+    <tr>
+      <th><h5>name</h5></th>
+      <td><h6><%= end_user.name %></h6></td>
+    </tr>
+    <tr>
+      <th><h5>introduction</h5></th>
+      <td><%= end_user.introduce %></td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to edit_end_user_path(end_user.id), class:"btn btn-outline-secondary btn-block" do %>
+  <i class="fas fa-user-cog"></i>
+<% end %>
+<%= form_with model: post do |f| %>
+  <h2>学習内容投稿</h2>
+  <div class="field">
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title, size: "25" %></br>
+  </div>
+  <div class="field">
+    <%= f.label :learning_content, "学習内容" %><br>
+    <%= f.text_area :body, size: "30" %></br>
+  </div>
+  <div class="actions">
+    <%= f.submit '投稿する' %>
+  </div>
+<% end %>
