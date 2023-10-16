@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2023_10_10_123533) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.integer "learning_content", null: false
-    t.datetime "learning_time", null: false
+    t.integer "learning_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

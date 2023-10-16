@@ -21,9 +21,15 @@
     <%= f.label :title, "タイトル" %><br>
     <%= f.text_field :title, size: "25" %></br>
   </div>
+  
+    <div class="field">
+    <%= f.label :learning_time, "学習時間" %><br>
+    <%= f.text_field :learning_time, size: "30" %></br>
+  </div>
+  
   <div class="field">
     <%= f.label :learning_content, "学習内容" %><br>
-    <%= f.text_area :body, size: "30" %></br>
+    <%= f.text_area :learning_content, size: "30" %></br>
   </div>
   <div class="actions">
     <%= f.submit '投稿する' %>
