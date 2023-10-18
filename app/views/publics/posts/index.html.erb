@@ -16,19 +16,24 @@
         <tbody>
           <% @posts.each do |post| %>
             <tr>
-              <th>
-                <%= link_to end_user_path(@end_user.id) do %>
-                <%#= image end_user.get_profile_image(100,100) %>
-                <% end %>
-              </th>
               <td>
-                <%= link_to post_path(post.id) %>
+                <%= link_to end_user_path(@end_user.id) do %>
+                  <%#= image end_user.get_profile_image(100,100) %>
+                <%= post.title %>
+                <% end %>
+              </td>
+              <td>
+                <%= post.learning_time %>
+              </td>
+              <td>
+                <%#= link_to post_path(post.id) do %>
+                  <%= post.learning_content %>
+                <%# end %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      </div>
     </div>
   </div>
 </div>
