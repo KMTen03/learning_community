@@ -1,7 +1,6 @@
 class Publics::EndUsersController < ApplicationController
   def show
     @post = Post.new
-    
     @end_user = EndUser.find(params[:id])
     @posts = @end_user.posts.page(params[:page])
   end
