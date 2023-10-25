@@ -11,22 +11,31 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>
-              <%= link_to end_user_path(@post.end_user) do %>
-                <%#= image_tag @post.end_user.get_profile_image(100,100) %>
-              <%= @post.end_user.name %>
-              <% end %>
-              <!--イメージタグ使えるようになったらdoとendを戻す。-->
-            </th>
-            <td><%= link_to @post.title, post_path(@post.end_user) %></td>
-            <td><%= @post.learning_content %></td>
-            <%# if @book.user == @user %>
-              <%#= link_to "Edit", edit_book_path(@book.id), class: "btn btn-success" %>
-              <%#= link_to "Destroy", book_path(@book.id), method: :delete, class: "btn btn-danger pull-right" %>
-            <%# end %>
+            <th>ユーザー情報</th>
+            <th>タイトル</th>
+            <th>学習時間</th>
+            <th>学習内容</th>
           </tr>
         </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to end_user_path(@post.end_user) do %>
+                <%= image_tag @post.end_user.get_profile_image(100,100) %>
+                <%= @post.end_user.name %>
+              <% end %>
+              <!--イメージタグ使えるようになったらdoとendを戻す。-->
+            </td>
+            <td><%= link_to @post.title, post_path(@post.end_user) %></td>
+            <td><%= @post.learning_time %></td>
+            <td><%= @post.learning_content %></td>
+          </tr>
+        </tbody>
       </table>
+      <% if @post.end_user == @end_user %>
+        <%= link_to "編集する", edit_post_path(@post.id), class: "btn btn-success" %>
+        <%= link_to "削除する", post_path(@post.id), method: :delete, class: "btn btn-danger pull-right" %>
+      <% end %>
     </div>
   </div>
 </div>

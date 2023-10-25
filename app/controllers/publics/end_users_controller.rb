@@ -11,6 +11,7 @@ class Publics::EndUsersController < ApplicationController
   end
 
   def update
+    @end_user = EndUser.find(params[:id])
     if @end_user.update(end_user_params)
       redirect_to end_user_path(@end_user.id)
     else
@@ -19,18 +20,24 @@ class Publics::EndUsersController < ApplicationController
   end
 
   def withdraw
+    @end_user = current_end_user
+    @end_user.update(is_deleted: true)
+    reset_session
+    redirect_to root_
   end
 
-  # private
+  private
 
-  # def end_user_params
-  #   params.require(:end_user).permit(:name, :introduce, :profile_image)
-  # end
+  def end_user_params
+    params.require(:end_user).permit(:name, :introduce)
+  end
 
-  # def is_matching_login_user
-  #   @end_user = EndUser.find(params[:id])
-  #   unless @end_user == current_user
-  #     redirect_to end_user_path(current_user.id)
-  #   end
-  # end
+  # :profile_image
+
+  def is_matching_login_user
+    @end_user = EndUser.find(params[:id])
+    unless @end_user == current_user
+      redirect_to end_user_path(current_user.id)
+    end
+  end
 end
