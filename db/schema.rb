@@ -73,8 +73,12 @@ ActiveRecord::Schema.define(version: 2023_10_18_120448) do
   end
 
   create_table "likes", force: :cascade do |t|
+    t.integer "end_user_id", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["end_user_id"], name: "index_likes_on_end_user_id"
+    t.index ["post_id"], name: "index_likes_on_post_id"
   end
 
   create_table "post_tags", force: :cascade do |t|
@@ -85,7 +89,7 @@ ActiveRecord::Schema.define(version: 2023_10_18_120448) do
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
     t.string "learning_content", null: false
-    t.integer "learning_time", null: false
+    t.string "learning_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "end_user_id"
@@ -99,4 +103,6 @@ ActiveRecord::Schema.define(version: 2023_10_18_120448) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "likes", "end_users"
+  add_foreign_key "likes", "posts"
 end

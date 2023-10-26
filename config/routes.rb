@@ -20,9 +20,11 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'homes/top' => 'homes#top'
     get 'homes/about' => 'homes#about', as: 'about'
-    resources :comments, only: [:create, :destroy]
-    resources :likes, only: [:create, :destroy]
-    resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy]
+    resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
+      
+      resource :comments, only: [:create, :destroy]
+      resource :likes, only: [:create, :destroy]
+    end
     resources :end_users, only: [:show, :edit, :update]
     patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
   end

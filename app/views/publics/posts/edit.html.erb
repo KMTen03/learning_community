@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h2>ユーザー情報編集</h2>
         <% if @post.errors.any? %>
         <ul>
         <%= @post.errors.count %>errors
@@ -18,7 +17,7 @@
           </div>
           <div class="field">
             <%= f.label :learning_content, "学習内容" %><br>
-            <%= f.text_area :body, size: "30" %></br>
+            <%= f.text_area :learning_content, size: "30" %></br>
           </div>
           <div class="actions">
             <%= f.submit '再投稿する' %>

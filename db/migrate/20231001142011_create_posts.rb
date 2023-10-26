@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
 
       t.string :title, null: false
       t.string :learning_content, null: false
-      t.integer :learning_time, null: false
+      t.string :learning_time, null: false
       t.timestamps
     end
   end

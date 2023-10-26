@@ -32,6 +32,17 @@
           </tr>
         </tbody>
       </table>
+      <% if @post.liked?(current_end_user) %>
+      <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
+        <%= link_to post_likes_path(@post.id), method: :delete do %>
+            <span style="color:red;">❤︎</span>
+        <% end %>
+      <% else %>
+        <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
+        <%= link_to post_likes_path(@post.id), method: :post do %>
+            <span>❤︎</span>
+        <% end %>
+      <% end %>
       <% if @post.end_user == @end_user %>
         <%= link_to "編集する", edit_post_path(@post.id), class: "btn btn-success" %>
         <%= link_to "削除する", post_path(@post.id), method: :delete, class: "btn btn-danger pull-right" %>
