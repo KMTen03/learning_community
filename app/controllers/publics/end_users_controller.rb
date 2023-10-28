@@ -23,16 +23,22 @@ class Publics::EndUsersController < ApplicationController
     @end_user = current_end_user
     @end_user.update(is_deleted: true)
     reset_session
-    redirect_to root_
+    redirect_to root_path
+  end
+  
+  def favorites
+    @end_user = EndUser.find(params[:id])
+    favorites = Favorite.where(end_user_id: @end_user.id).pluck(:post_id)
+    @favorites_posts = Post.find(favorites)
+    @post = Post.find(params[:id])
   end
 
   private
 
   def end_user_params
-    params.require(:end_user).permit(:name, :introduce)
+    params.require(:end_user).permit(:name, :introduce, :profile_image)
   end
 
-  # :profile_image
 
   def is_matching_login_user
     @end_user = EndUser.find(params[:id])

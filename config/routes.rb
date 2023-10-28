@@ -21,11 +21,14 @@ Rails.application.routes.draw do
     get 'homes/top' => 'homes#top'
     get 'homes/about' => 'homes#about', as: 'about'
     resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
-      
       resource :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
-    resources :end_users, only: [:show, :edit, :update]
+    resources :end_users, only: [:show, :edit, :update] do
+      member do
+        get :favorites
+      end
+    end
     patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
   end
 
