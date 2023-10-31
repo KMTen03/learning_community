@@ -26,11 +26,10 @@ class Publics::EndUsersController < ApplicationController
     redirect_to root_path
   end
   
-  def favorites
+  def likes
     @end_user = EndUser.find(params[:id])
-    favorites = Favorite.where(end_user_id: @end_user.id).pluck(:post_id)
-    @favorites_posts = Post.find(favorites)
-    @post = Post.find(params[:id])
+    likes = Like.where(end_user_id: @end_user.id).pluck(:post_id)
+    @likes_posts = Post.find(likes)
   end
 
   private

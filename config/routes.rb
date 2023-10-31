@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: {
         sessions: 'admins/sessions'
       }
-      
+
   devise_for :end_users, controllers: {
         sessions: 'publics/sessions',
         registrations: "publics/registrations"
       }
-      
+
   namespace :admins do
     get '/' => 'homes#top', as: 'top'
     resources :comments, only: [:index, :show, :edit, :update]
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
     resources :end_users, only: [:show, :edit, :update] do
       member do
-        get :favorites
+        get :likes
       end
     end
     patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
