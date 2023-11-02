@@ -1,2 +1,52 @@
-<h1>Admin::Posts#show</h1>
-<p>Find me in app/views/admin/posts/show.html.erb</p>
+<div>
+  <%= flash[:notice] %>
+</div>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render 'sidebar', end_user: @post.end_user, post: @post %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>投稿内容詳細</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ユーザー情報</th>
+            <th>タイトル</th>
+            <th>学習時間</th>
+            <th>学習内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to end_user_path(@post.end_user) do %>
+                <%= image_tag @post.end_user.get_profile_image(100,100) %>
+                <%= @post.end_user.name %>
+              <% end %>
+              <!--イメージタグ使えるようになったらdoとendを戻す。-->
+            </td>
+            <td><%= link_to @post.title, post_path(@post.end_user) %></td>
+            <td><%= @post.learning_time %></td>
+            <td><%= @post.learning_content %></td>
+          </tr>
+        </tbody>
+      </table>
+      <% if @post.liked?(current_end_user) %>
+      <!--一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
+        <%= link_to post_likes_path(@post.id), method: :delete do %>
+            <span style="color:red;">❤</span>
+        <% end %>
+      <% else %>
+        <!--一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
+        <%= link_to post_likes_path(@post.id), method: :post do %>
+            <span>❤︎</span>
+        <% end %>
+      <% end %>
+      <% if @post.end_user == @end_user %>
+        <%= link_to "編集する", edit_post_path(@post.id), class: "btn btn-success" %>
+        <%= link_to "削除する", post_path(@post.id), method: :delete, class: "btn btn-danger pull-right" %>
+      <% end %>
+    </div>
+  </div>
+</div>

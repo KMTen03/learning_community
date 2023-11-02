@@ -1,2 +1,40 @@
-<h1>Admin::EndUsers#index</h1>
-<p>Find me in app/views/admin/end_users/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h4>会員一覧</h4>
+      <table class="table">
+        <tdead>
+          <tr>
+            <th scope="col">会員ID</th>
+            <th scope="col">氏名</th>
+            <th scope="col">メールアドレス</th>
+            <th scope="col">ステータス</th>
+          </tr>
+          </table>
+        </tdead>
+      <% @end_users.each do |end_user| %>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td><%= end_user.id %></td>
+              <td>
+                <%= link_to admins_end_users_path(end_user.id) do %>
+                  <%= end_user.name %>
+                <% end %>
+              </td>
+              <td><%#= end_user.email %></td>
+              <td>
+                <% if end_user.is_deleted == false %>
+                  <h6 class="text-success">有効</h6>
+                <% else %>
+                  <h6 class="text-secondary">退会</h6>
+                <% end %>
+              </td>
+             </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= paginate @end_users%>

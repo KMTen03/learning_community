@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
 
   devise_for :admins, controllers: {
-        sessions: 'admins/sessions'
-      }
+    sessions: 'admins/sessions'
+  }
 
   devise_for :end_users, controllers: {
-        sessions: 'publics/sessions',
-        registrations: "publics/registrations"
-      }
+    registrations: "publics/registrations",
+    sessions: 'publics/sessions',
+    passwords: 'users/passwords'
+  }
+  
+  devise_scope :end_user do
+    post 'end_users/guest_sign_in', to: 'publics/sessions#guest_sign_in'
+  end
 
   namespace :admins do
     get '/' => 'homes#top', as: 'top'
@@ -20,6 +25,8 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'homes/top' => 'homes#top'
     get 'homes/about' => 'homes#about', as: 'about'
+
+
     resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resource :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]

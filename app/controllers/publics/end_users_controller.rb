@@ -31,6 +31,12 @@ class Publics::EndUsersController < ApplicationController
     likes = Like.where(end_user_id: @end_user.id).pluck(:post_id)
     @likes_posts = Post.find(likes)
   end
+  
+  def guest_sign_in
+    @end_user = EndUser.guest
+    sign_in end_user
+    redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
 
   private
 
