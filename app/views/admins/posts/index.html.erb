@@ -1,1 +1,39 @@
-
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col">
+    <h4>投稿一覧</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>プロフィール画像</th>
+            <th>タイトル</th>
+            <th>学習時間</th>
+            <th>学習内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <tr>
+              <td>
+                <%= link_to admins_end_user_path(end_user) do %>
+                  <%= image_tag @end_user.get_profile_image(100,100) %>
+                <%= post.title %>
+                <% end %>
+                <!--イメージタグ付けたらdoを戻す。-->
+              </td>
+              <td>
+                <%= post.learning_time.to_i %>
+              </td>
+              <td>
+                <%= link_to post_path(post.id) do %>
+                  <%= post.learning_content %>
+                <% end %>
+                <!--こっちも-->
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

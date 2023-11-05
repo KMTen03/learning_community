@@ -9,9 +9,10 @@ class Publics::PostsController < ApplicationController
   end
 
   def show
-    @post = Post.new
-    @end_user = current_end_user
     @post = Post.find(params[:id])
+    @end_user = current_end_user
+    @comment = Comment.new
+    @comments = @post.comments.includes(:end_user)
   end
 
   def edit
@@ -44,13 +45,13 @@ class Publics::PostsController < ApplicationController
     @posts.destroy
     redirect_to posts_path
   end
-  
+
   private
-  
+
   def post_params
     params.require(:post).permit(:title, :learning_time, :learning_content)
   end
-  
+
   def is_matching_login_user
     @end_user = EndUser.find(params[:id])
     unless @post.end_user == current_user

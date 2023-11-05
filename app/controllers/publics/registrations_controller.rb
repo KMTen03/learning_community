@@ -14,8 +14,4 @@ class Publics::RegistrationsController < Devise::RegistrationsController
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
   end
-  
-  def after_sign_in_path_for(resource)
-    posts_path
-  end
 end
