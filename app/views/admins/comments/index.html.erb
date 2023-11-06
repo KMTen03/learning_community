@@ -1,2 +1,26 @@
-<h1>Admin::Comments#index</h1>
-<p>Find me in app/views/admin/comments/index.html.erb</p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col">
+    <h4>投稿一覧</h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>コメントID</th>
+            <th>ユーザー名</th>
+            <th>投稿内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <h4>コメント一覧</h4>
+          <% @comments.each do |comment| %>
+            <tr>
+              <td><%= comment.id %></td>
+              <td><%= comment.end_user.name %></td>
+              <td><%= comment.content %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

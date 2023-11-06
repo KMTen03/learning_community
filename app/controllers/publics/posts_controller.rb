@@ -1,4 +1,6 @@
 class Publics::PostsController < ApplicationController
+  before_action :authenticate_end_user!
+  
   def new
   end
 
@@ -6,6 +8,12 @@ class Publics::PostsController < ApplicationController
     @posts = Post.all
     @post = Post.new
     @end_user = current_end_user
+    if params[:keyword]
+      @posts = @posts.search(params[:keyword]).page(params[:page])
+    else
+      @posts = @posts.page(params[:page])
+    end
+    @keyword = params[:keyword]
   end
 
   def show

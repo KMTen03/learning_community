@@ -9,7 +9,7 @@ class Publics::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  protected
+  private
   
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])

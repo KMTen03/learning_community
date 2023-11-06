@@ -19,23 +19,23 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :show, :edit, :update]
     resources :posts, only: [:index, :show, :edit, :update]
     resources :end_users, only: [:index, :show, :edit, :update]
+    #resources :tags, only: [:index, :create, :edit, :update, :destroy]
   end
 
   scope module: :publics do
-    root to: 'homes#top'
-    get 'homes/top' => 'homes#top'
-    get 'homes/about' => 'homes#about', as: 'about'
-
-
+    root to: 'posts#index'
+    
     resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
+    get "search" => "posts#search"
     resources :end_users, only: [:show, :edit, :update] do
       member do
         get :likes
       end
     end
+    get 'end_users/confirm' => 'end_users#confirm'
     patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
   end
 

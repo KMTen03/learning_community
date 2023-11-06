@@ -1,35 +1,42 @@
-
-<h3>新規会員登録</h3>
-
-<%= form_with model: @end_user, url: end_user_registration_path do |f| %>
-  <%= render "publics/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-    <%= f.label :name, "ユーザー名" %><br>
-    <%= f.text_field :name %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <%= render 'publics/homes/top'%>
+    </div>
+    <div class="col-md-6 offset-md-1">
+      <h3>新規会員登録</h3>
+      
+      <%= form_with model: @end_user, url: end_user_registration_path do |f| %>
+        <%= render "publics/shared/error_messages", resource: resource %>
+        <div class="field">
+          <%= f.label :name,"ユーザー名"  %><br>
+          <%= f.text_field :name, placeholder: "" %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :email, "メールアドレス" %><br />
+          <%= f.email_field :email, placeholder: "example@user.com" %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :password, "パスワード" %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %>文字以上)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+        
+        <div class="actions">
+          <%= f.submit "新規登録" %>
+        </div>
+      <% end %>
+      
+      <%= render "publics/shared/links" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email, "メールアドレス" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, "パスワード" %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %>文字以上)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "パスワード（確認用）" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
-
-<%= render "publics/shared/links" %>
+</div>

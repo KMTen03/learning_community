@@ -1,9 +1,7 @@
 <%#= image_tag user.get_profile_image(100,100) %>
 <%= link_to posts_path, class:"btn btn-light btn-lg" do %>
   <i class="fas fa-home">投稿一覧</i>
-<% end %>
-
-<i class="fas fa-tag">タグ検索</i>
+<% end %> 
 
 <i class="fas fa-star">ブックマーク一覧</i>
 
@@ -26,9 +24,6 @@
     <%= f.label :learning_time, "学習時間" %><br>
     <%= f.number_field :learning_time, size: "25" %></br>
   </div>
-  <!--正規表現を行うかデータ型をintegerからstringに変更することで全角入力を数字として認識できるようになる-->
-  <!--正規表現にする場合は教えてもらったサイトを参考にする-->
-  <!--データ型を変更する場合は、上記learning_timeのあとに.to_iをつけて数字を変換するようにすること-->
   <div class="field">
     <%= f.label :learning_content, "学習内容" %><br>
     <%= f.text_area :learning_content, size: "30" %></br>
