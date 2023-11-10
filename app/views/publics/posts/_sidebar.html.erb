@@ -1,9 +1,12 @@
-<%#= image_tag user.get_profile_image(100,100) %>
+
+
 <%= link_to posts_path, class:"btn btn-light btn-lg" do %>
   <i class="fas fa-home">投稿一覧</i>
 <% end %> 
 
-<i class="fas fa-star">ブックマーク一覧</i>
+<%= link_to likes_end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
+  <i class="fas fa-star">ブックマーク一覧</i>
+<% end %>
 
 <%= link_to end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
   <i class="fas fa-id-card">ユーザー情報</i>

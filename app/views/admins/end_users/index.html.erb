@@ -18,11 +18,11 @@
             <tr>
               <td><%= end_user.id %></td>
               <td>
-                <%= link_to admins_end_users_path(end_user.id) do %>
+                <%= link_to admins_end_user_path(end_user.id) do %>
                   <%= end_user.name %>
                 <% end %>
               </td>
-              <td><%#= end_user.email %></td>
+              <td><%= end_user.email %></td>
               <td>
                 <% if end_user.is_deleted == false %>
                   <h6 class="text-success">有効</h6>

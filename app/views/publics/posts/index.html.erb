@@ -4,14 +4,15 @@
 <div class="text-danger">
   <%= flash[:alret] %>　
 </div>
-<div class="container px-5 px-sm-0">
+
+<div class="container">
   <div class="row">
     <div class="col-md-3">
       <%= render 'sidebar', end_user: @end_user, post: @post %>
     </div>
-    <div class="col-md-8 offset-md-1">
+    <div class="col-md-7 offset-md-1">
+      <%= render "search", post: @post %>
     <h4>投稿一覧</h4>
-    <%= render "search", post: @post %>
       <table class="table table-hover">
         <% @posts.each do |post| %>
           <tr>

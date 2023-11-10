@@ -1,6 +1,6 @@
 class Publics::PostsController < ApplicationController
   before_action :authenticate_end_user!
-  
+
   def new
   end
 
@@ -31,27 +31,27 @@ class Publics::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.end_user_id = current_end_user.id
     if @post.save
-      redirect_to post_path(@post.id)
+      redirect_to post_path(@post.id), notice:"投稿しました。"
     else
       @posts = Post.all
-      render :index
+      render :index, notice:"投稿に失敗しました。"
     end
   end
 
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      redirect_to post_path(@post.id)
+      redirect_to post_path(@post.id), notice:"変更を保存しました。"
     else
       @posts = Post.all
-      render :index
+      render :index, notice:"変更を保存に失敗しました。"
     end
   end
 
   def destroy
     @posts = Post.find(params[:id])
     @posts.destroy
-    redirect_to posts_path
+    redirect_to posts_path, notice:"投稿が削除されました。"
   end
 
   private
