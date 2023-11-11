@@ -1,7 +1,11 @@
 class Admins::PostsController < ApplicationController
   before_action :authenticate_admin!
   def index
-    @posts = Post.page(params[:page])
+    if params[:end_user_id]
+      @posts = EndUser.find(params[:end_user_id]).posts.page(params[:page])
+    else
+      @posts = Post.page(params[:page])
+    end
   end
 
   def show
@@ -24,7 +28,7 @@ class Admins::PostsController < ApplicationController
   def destroy
     @posts = Post.find(params[:id])
     @posts.destroy
-    redirect_to admins_end_users_path, notice:"投稿が削除されました。"
+    redirect_to admins_posts_path, notice:"投稿が削除されました。"
   end
   
   private

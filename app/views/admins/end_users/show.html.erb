@@ -27,7 +27,7 @@
   <div class="row">
     <div class="col">
       <%= link_to "編集する", edit_admins_end_user_path, class: 'btn btn-success' %>
-      <%= link_to "投稿を見る", admins_post_path(@post.id), class: 'btn btn-primary' %>
+      <%= link_to "投稿を見る", admins_posts_path(end_user_id: @end_user.id), class: 'btn btn-primary' %>
     </div>
   </div>
 </div>
