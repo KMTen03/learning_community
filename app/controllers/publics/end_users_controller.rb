@@ -38,6 +38,10 @@ class Publics::EndUsersController < ApplicationController
     sign_in end_user
     redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
   end
+  
+  def ranking
+    @end_user_ranks = EndUser.find(EndUserPost.group(:end_user_id).order('count(post_id) desc').limit(10).pluck(:end_user_id))
+  end
 
   private
 

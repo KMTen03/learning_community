@@ -23,6 +23,7 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if end_user_signed_in? %>
+              <%= render partial: 'publics/searches/search', search: @search %>
               <li>
                 <%= link_to end_user_path(current_end_user), class:'btn btn-light' do %>
                    マイページ

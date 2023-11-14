@@ -11,8 +11,7 @@
       <%= render 'sidebar', end_user: @end_user, post: @post %>
     </div>
     <div class="col-md-7 offset-md-1">
-      <%= render "search", post: @post %>
-    <h4>投稿一覧</h4>
+      <h4>投稿一覧</h4>
       <table class="table table-hover">
         <% @posts.each do |post| %>
           <tr>

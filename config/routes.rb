@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
-    get "search" => "posts#search"
+    get "search" => "searches#search"
     resources :end_users, only: [:show, :edit, :update] do
       member do
         get :likes

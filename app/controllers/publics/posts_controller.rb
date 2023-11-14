@@ -5,15 +5,10 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
     @post = Post.new
+    @posts = Post.all
+    @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
     @end_user = current_end_user
-    if params[:keyword]
-      @posts = @posts.search(params[:keyword]).page(params[:page])
-    else
-      @posts = @posts.page(params[:page])
-    end
-    @keyword = params[:keyword]
   end
 
   def show
