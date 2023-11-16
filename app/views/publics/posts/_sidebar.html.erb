@@ -1,36 +1,38 @@
+<div class="transfer-button">
+  <%= link_to posts_path, class:"btn btn-light btn-lg" do %>
+    <i class="fas fa-home">投稿一覧</i>
+  <% end %> 
+  
+  <%= link_to likes_end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
+    <i class="fas fa-star">ブックマーク一覧</i>
+  <% end %>
+  
+  <%= link_to end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
+    <i class="fas fa-id-card">ユーザー情報</i>
+  <% end %>
+  
+  <%= link_to edit_end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
+    <i class="fas fa-cog">プロフィール編集</i>
+  <% end %>
+</div>
 
-
-<%= link_to posts_path, class:"btn btn-light btn-lg" do %>
-  <i class="fas fa-home">投稿一覧</i>
-<% end %> 
-
-<%= link_to likes_end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
-  <i class="fas fa-star">ブックマーク一覧</i>
-<% end %>
-
-<%= link_to end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
-  <i class="fas fa-id-card">ユーザー情報</i>
-<% end %>
-
-<%= link_to edit_end_user_path(end_user.id), class:"btn btn-light btn-lg" do %>
-  <i class="fas fa-cog">プロフィール編集</i>
-<% end %>
-
-<%= form_with model: post do |f| %>
-  <h4>学習内容投稿</h4>
-  <div class="field">
-    <%= f.label :title, "タイトル" %><br>
-    <%= f.text_field :title, size: "25" %></br>
-  </div>
-  <div class="field">
-    <%= f.label :learning_time, "学習時間" %><br>
-    <%= f.number_field :learning_time, size: "25" %></br>
-  </div>
-  <div class="field">
-    <%= f.label :learning_content, "学習内容" %><br>
-    <%= f.text_area :learning_content, size: "30" %></br>
-  </div>
-  <div class="actions">
-    <%= f.submit '投稿する', class:"btn btn-info btn-lg" %>
-  </div>
-<% end %>
+<div class="post-form">
+  <%= form_with model: post do |f| %>
+    <h4>学習内容投稿</h4>
+    <div class="field">
+      <%= f.label :title, "タイトル" %><br>
+      <%= f.text_field :title, size: "25" %></br>
+    </div>
+    <div class="field">
+      <%= f.label :learning_time, "学習時間" %><br>
+      <%= f.number_field :learning_time, size: "25" %></br>
+    </div>
+    <div class="field">
+      <%= f.label :learning_content, "学習内容" %><br>
+      <%= f.text_area :learning_content, size: "30" %></br>
+    </div>
+    <%= button_tag type: "submit", class:"btn btn-info btn-lg" do %>
+      <i class="fa-solid fa-pen-to-square"></i>投稿する
+    <% end %>
+  <% end %>
+</div>
