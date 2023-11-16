@@ -5,9 +5,11 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
-    @post = Post.new
+    @q = Post.ransack(params[:q])
     @posts = Post.all
+    @posts = @q.result
     @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+    
     @end_user = current_end_user
   end
 

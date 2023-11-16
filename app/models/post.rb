@@ -8,11 +8,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title"]
-  end
-
-  def self.search(keyword)
-    where("title LIKE ? or learning_content LIKE ? or learning_time LIKE ?", "%#{sanitize_sql_like(keyword)}%", "%#{sanitize_sql_like(keyword)}%", "%#{sanitize_sql_like(keyword)}%")
+    ["created_at", "end_user_id", "id", "learning_content", "learning_time", "title", "updated_at"]
   end
 
   def liked?(end_user)

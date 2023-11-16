@@ -1,4 +1,4 @@
 <%= search_form_for @search, url: search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :title_cont, placeholder: "気になるワードを入力" %>
+  <%= f.text_field :title_cont, placeholder: "検索したいワードを入力" %>
   <%= f.submit "検索" %>
 <% end %>
