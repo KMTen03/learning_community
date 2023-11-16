@@ -1,2 +1,0 @@
-module Publics::RanksHelper
-end

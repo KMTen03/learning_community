@@ -24,19 +24,20 @@ Rails.application.routes.draw do
 
   scope module: :publics do
     root to: 'posts#index'
-    
+    get 'search' => 'searches#search'
     resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
-    get 'search' => 'searches#search'
+    get 'end_users/:id/confirm' => 'end_users#confirm', as: 'confirm'
+    patch 'end_users/:id/withdraw' => 'end_users#withdraw', as: 'withdraw'
+
     resources :end_users, only: [:show, :edit, :update] do
       member do
         get :likes
       end
     end
-    get 'end_users/confirm' => 'end_users#confirm'
-    patch 'end_users/withdraw' => 'end_users#withdraw', as: 'withdraw'
+
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
