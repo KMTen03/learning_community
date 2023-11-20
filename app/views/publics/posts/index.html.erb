@@ -2,7 +2,7 @@
   <%= flash[:notice] %>
 </div>
 <div class="text-danger">
-  <%= flash[:alret] %>　
+  <%= flash[:alret] %>
 </div>
 
 <div class="container">
@@ -16,7 +16,7 @@
         <% @posts.each do |post| %>
           <tr>
             <td>
-              <%= link_to end_user_path(@end_user.id) do %>
+              <%= link_to end_user_path(post.end_user) do %>
                 <%= image_tag @end_user.get_profile_image(100,100) %>
               <%= post.title %>
               <% end %>

@@ -5,12 +5,12 @@ class Publics::PostsController < ApplicationController
   end
 
   def index
+    @post = Post.new
     @q = Post.ransack(params[:q])
     @posts = Post.all
+    @end_user = current_end_user
     @posts = @q.result
     @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
-    
-    @end_user = current_end_user
   end
 
   def show
@@ -28,7 +28,7 @@ class Publics::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.end_user_id = current_end_user.id
     if @post.save
-      redirect_to post_path(@post.id), notice:"投稿しました。"
+      redirect_to posts_path, notice:"投稿しました。"
     else
       @posts = Post.all
       render :index, notice:"投稿に失敗しました。"
@@ -50,7 +50,7 @@ class Publics::PostsController < ApplicationController
     @posts.destroy
     redirect_to posts_path, notice:"投稿が削除されました。"
   end
-  
+
   def rank
     @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
   end

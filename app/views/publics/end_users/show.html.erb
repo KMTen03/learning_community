@@ -4,7 +4,16 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-md-3">
-      <%= render 'publics/posts/sidebar', end_user: @end_user, post: @post %>
+      <%= link_to end_user_path(@end_user.id) do %>
+        <%= image_tag @end_user.get_profile_image(75,75) %>
+      <% end %>
+      <h6>ユーザー名</h6>
+      <%= @end_user.name %>
+      <h6>自己紹介</h6>
+      <%= @end_user.introduce %>
+      <%= link_to edit_end_user_path(@end_user.id), class:"btn btn-light btn-lg" do %>
+        <i class="fas fa-cog">プロフィール編集</i>
+      <% end %>
     </div>
     <div class="col-md-8 offset-md-1">
       <h4>ユーザー投稿内容</h4>

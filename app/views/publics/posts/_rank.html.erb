@@ -14,20 +14,20 @@
   <% elsif i == 2 %>
   <tr>
     <td><%= image_tag("second_icon.jpeg") %><%= i %>位</td>
-    <td><%= rank.end_user.name %></td>
-    <td><%= rank.like.count %></td> 
+    <td><%= post.end_user.name %></td>
+    <td><%= post.likes.count %></td> 
   </tr>
   <% elsif i == 3 %>
   <tr>
     <td><%= image_tag("third_icon.jpeg") %><%= i %>位</td>
-    <td><%= rank.end_user.name %></td>
-    <td><%= rank.like.count %></td> 
+    <td><%= post.end_user.name %></td>
+    <td><%= post.likes.count %></td> 
   </tr>
   <% else %> 
   <tr>
     <td><%= i %>位</td>
-    <td><%= rank.end_user.name %></td>
-    <td><%= rank.likes.count %></td> 
+    <td><%= post.end_user.name %></td>
+    <td><%= post.likes.count %></td> 
   </tr>
   <% end %>
   <% end %>
