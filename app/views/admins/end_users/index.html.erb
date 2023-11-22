@@ -3,17 +3,15 @@
     <div class="col">
       <h4>会員一覧</h4>
       <table class="table">
-        <tdead>
+        <thead>
           <tr>
             <th scope="col">会員ID</th>
             <th scope="col">氏名</th>
             <th scope="col">メールアドレス</th>
             <th scope="col">ステータス</th>
           </tr>
-          </table>
-        </tdead>
+        </thead>
       <% @end_users.each do |end_user| %>
-        <table class="table">
           <tbody>
             <tr>
               <td><%= end_user.id %></td>
@@ -32,8 +30,8 @@
               </td>
              </tr>
           </tbody>
-        </table>
-      <% end %>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>

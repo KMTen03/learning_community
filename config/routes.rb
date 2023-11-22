@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :show, :edit, :update]
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
     resources :end_users, only: [:index, :show, :edit, :update]
-    #resources :tags, only: [:index, :create, :edit, :update, :destroy]
+    resources :tags, only: [:index, :create, :edit, :update, :destroy]
   end
 
   scope module: :publics do
