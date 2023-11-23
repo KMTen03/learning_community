@@ -51,6 +51,11 @@
                 <% end %>
               </li>
               <li>
+                <%= link_to admins_tags_path, class:'btn btn-light' do %>
+                  タグ一覧
+                <% end %>
+              </li>
+              <li>
                 <%= link_to destroy_admin_session_path, method: :delete, class:'btn btn-light' do %>
                    ログアウト
                 <% end %>

@@ -2,7 +2,7 @@
   <div class="row mt-5 mb-5">
     <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 mx-auto">
 
-      <%#= render "error", tag: @tag %>
+      <%= render "admins/shared/error_messages", resource: @tag %>
       <h3><strong><%= flash[:notice] %><%= flash[:alert] %></strong></h3>
       <h3 class="text-center"><strong class="border-bottom border-dark">タグ一覧・追加/削除</strong></h3>
 
@@ -12,7 +12,7 @@
               <tr>
                 <td class="align-middle">タグ名</td>
                 <td class="center align-middle">
-                  <%= f.text_field:tag_type,:size=>"35" %>
+                  <%= f.text_field:tag_name,:size=>"35" %>
                 </td>
                 <td colspan="2"></td>
                 <td>
@@ -30,7 +30,7 @@
             <tbody>
               <% @tags.each do |tag| %>
                 <tr>
-                  <td class="align-middle"><%= tag.tag_type %></td>
+                  <td class="align-middle"><%= tag.tag_name %></td>
                   <td colspan="3"></td>
                   <td>
                     <%= link_to "タグを変更する", edit_admins_tag_path(tag.id), class: "btn btn-success" %>

@@ -8,22 +8,7 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
     <div class="col-md-3">
-      <h5>ユーザー情報</h5>
-      <%= image_tag @end_user.get_profile_image(100,100) %>
-      <table class="table">
-        <tr>
-          <th>ユーザー名</th>
-        </tr>
-        <tr>
-          <td><%= @end_user.name %></td>
-        </tr>
-        <tr>
-          <th>自己紹介文</th>
-        </tr>
-          <td><%= @end_user.introduce %></td>
-        </tr>
-      </table>
-    </div>
+    <%= render 'publics/end_users/profile', end_user: @end_user %>
     <div class="col-md-7 offset-md-1">
       <h4>投稿内容詳細</h4>
       <table class="table table-hover">
@@ -37,6 +22,12 @@
           <td><%= @post.title %></td>
           <td><%= @post.learning_time %></td>
           <td><%= @post.learning_content %></td>
+          <td>
+            <% @post.tags.each do |tag| %>
+              <th style="width: 30%">タグ</th>
+              <td style="width: 70%"><%= tag.tag_name %></td>
+            <% end %>
+          </td>
           <td>
             <% if @post.liked?(current_end_user) %>
               <%= link_to post_likes_path(@post.id), method: :delete do %>
@@ -56,24 +47,7 @@
           </td>
         </tr>
       </table>
-      <% if end_user_signed_in? %>
-        <%= form_with model: [@post, @comment], local: true do |f| %>
-          <%= f.text_area :content, placeholder: "投稿にコメントする", rows: "2" %>
-          <%= f.submit "送信する" %>
-        <% end %>
-      <% else %>
-        <strong><p>コメントの投稿には新規登録またはログインが必要です。</p></strong>
-      <% end %>
-      <h4>コメント一覧</h4>
-      <% @comments.each do |comment| %>
-        <p><%= comment.end_user.name %></p>
-        <p><%= comment.content %></p>
-        <p>
-          <% if end_user_signed_in? && current_end_user.id == comment.end_user_id %>
-            <%= link_to "削除する", post_comment_path(comment.post.id, comment.id), method: :delete, class: "btn btn-danger pull-right" %>
-          <% end %>
-        </p>
-      <% end %>
+      <%= render 'publics/comments/form', end_user: @end_user, post: @post, comments: @comments %>
     </div>
   </div>
 </div>

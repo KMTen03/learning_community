@@ -29,11 +29,12 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
-    get 'end_users/:id/confirm' => 'end_users#confirm', as: 'confirm'
-    patch 'end_users/:id/withdraw' => 'end_users#withdraw', as: 'withdraw'
+
 
     resources :end_users, only: [:show, :edit, :update] do
       member do
+        get :confirm
+        patch :withdraw
         get :likes
       end
     end

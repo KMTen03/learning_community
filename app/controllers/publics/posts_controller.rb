@@ -6,11 +6,24 @@ class Publics::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @q = Post.ransack(params[:q])
     @posts = Post.all
-    @end_user = current_end_user
+    @q = Post.ransack(params[:q])
     @posts = @q.result
+    @end_user = current_end_user
     @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+    if params[:new_post]
+      @posts = Post.new_post
+    elsif params[:old_post]
+      @posts = Post.old_post
+    elsif params[:tag_id].present?
+
+      @posts = Tag.find(params[:tag_id]).posts
+    elsif params[:keyword]
+      @posts = @posts.search(params[:keyword]).page(params[:page])
+    else
+      Post.all
+    end
+    @keyword = params[:keyword] 
   end
 
   def show
@@ -26,8 +39,13 @@ class Publics::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+
     @post.end_user_id = current_end_user.id
     if @post.save
+      params[:post][:tag_ids].each do |tag_id|
+      PostTag.create(post_id: @post.id, tag_id: tag_id)
+    end
+    
       redirect_to posts_path, notice:"投稿しました。"
     else
       @posts = Post.all

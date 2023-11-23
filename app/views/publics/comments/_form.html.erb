@@ -1,0 +1,18 @@
+<% if end_user_signed_in? %>
+  <%= form_with model: [post, @comment], local: true do |f| %>
+    <%= f.text_area :content, placeholder: "投稿にコメントする", rows: "2" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+<% else %>
+  <strong><p>コメントの投稿には新規登録またはログインが必要です。</p></strong>
+<% end %>
+<h4>コメント一覧</h4>
+<% comments.each do |comment| %>
+  <p><%= comment.end_user.name %></p>
+  <p><%= comment.content %></p>
+  <p>
+    <% if end_user_signed_in? && current_end_user.id == comment.end_user_id %>
+      <%= link_to "削除する", post_comment_path(comment.post.id, comment.id), method: :delete, class: "btn btn-danger pull-right" %>
+    <% end %>
+  </p>
+<% end %>

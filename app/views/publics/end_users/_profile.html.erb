@@ -1,0 +1,15 @@
+<h5>ユーザー情報</h5>
+<%= image_tag end_user.get_profile_image(100,100) %>
+<table class="table">
+  <tr>
+    <th>ユーザー名</th>
+  </tr>
+  <tr>
+    <td><%= end_user.name %></td>
+  </tr>
+  <tr>
+    <th>自己紹介文</th>
+  </tr>
+    <td><%= end_user.introduce %></td>
+  </tr>
+</table>

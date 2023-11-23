@@ -27,6 +27,13 @@
                 <%= post.learning_content %>
               <% end %>
             </td>
+            <td>
+              <div class="col-1 py-3">
+                <% post.tags.each do |tag| %>
+                  <%= tag.tag_name %>
+                <% end %>
+              </div>
+            </td>
           </tr>
         <% end %>
       </table>

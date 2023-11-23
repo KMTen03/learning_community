@@ -1,10 +1,12 @@
-<% if Like.find_by(end_user_id: current_end_user.id, post_id: post.id) %>
-  <%= link_to "/functions/#{post.id}/likes", method: :delete %>
-    <i class="material-icons">star</i>
-  <% end %>
-<% else %>
-  <%= link_to "/functions/#{post.id}/likes", method: :post %>
-    <i class="material-icons">star_border</i>
+<td id="like-<%= post.id %>">
+  <% if Like.find_by(end_user_id: current_end_user.id, post_id: post.id) %>
+    <%= link_to "/functions/#{post.id}/likes", method: :delete %>
+      <i class="material-icons">star</i>
     <% end %>
-<% end %>
-<%= post.likes.length %>
+  <% else %>
+    <%= link_to "/functions/#{post.id}/likes", method: :post %>
+      <i class="material-icons">star_border</i>
+      <% end %>
+  <% end %>
+  <%= post.likes.length %>
+</td>
