@@ -11,10 +11,11 @@ class Post < ApplicationRecord
   validates :learning_time, presence: true
   validates :learning_content, presence: true
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "end_user_id", "id", "title", "learning_content", "learning_time", "updated_at"]
+  def self.search(keyword)
+    where("title LIKE ? or learning_time LIKE ? or learning_content LIKE ?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
   end
-
+  
+  
   def liked?(end_user)
     likes.where(end_user_id: end_user_id).exists?
   end

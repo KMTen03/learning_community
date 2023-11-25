@@ -10,6 +10,7 @@ class Publics::PostsController < ApplicationController
     @posts = @q.result(distinct: true)
     
     @end_user = current_end_user
+    
     @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
     if params[:new_post]
       @posts = Post.new_post
@@ -47,7 +48,7 @@ class Publics::PostsController < ApplicationController
       PostTag.create(post_id: @post.id, tag_id: tag_id)
     end
     
-      redirect_to posts_path, notice:"投稿しました。"
+      redirect_to post_path(@post.id), notice:"投稿しました。"
     else
       @posts = Post.all
       render :index, notice:"投稿に失敗しました。"
