@@ -18,7 +18,7 @@
         <tr>
           <% @search_posts.each do |f| %>
           <td><%= f.title %></td>
-          <td><%#= link_to end_user_path(f.end_user_id) %><%= f.learning_time %></td>
+          <td><%= f.learning_time %></td>
           <td><%= f.learning_content %></td>
         </tr>
         <% end %>

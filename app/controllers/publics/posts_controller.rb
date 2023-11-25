@@ -6,9 +6,9 @@ class Publics::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.all
     @q = Post.ransack(params[:q])
-    @posts = @q.result
+    @posts = @q.result(distinct: true)
+    
     @end_user = current_end_user
     @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
     if params[:new_post]
@@ -19,10 +19,11 @@ class Publics::PostsController < ApplicationController
 
       @posts = Tag.find(params[:tag_id]).posts
     elsif params[:keyword]
-      @posts = @posts.search(params[:keyword]).page(params[:page])
+      @posts = @posts.search(params[:keyword])
     else
-      Post.all
+      @posts = Post.all
     end
+    @posts = @posts.page(params[:page]).per(5)
     @keyword = params[:keyword] 
   end
 
@@ -42,7 +43,7 @@ class Publics::PostsController < ApplicationController
 
     @post.end_user_id = current_end_user.id
     if @post.save
-      params[:post][:tag_ids].each do |tag_id|
+      params[:post][:tag_ids]&.each do |tag_id|
       PostTag.create(post_id: @post.id, tag_id: tag_id)
     end
     
@@ -56,6 +57,10 @@ class Publics::PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
+      @post.post_tags.destroy_all
+      params[:post][:tag_ids]&.each do |tag_id|
+      PostTag.create(post_id: @post.id, tag_id: tag_id)
+    end
       redirect_to post_path(@post.id), notice:"変更を保存しました。"
     else
       @posts = Post.all
@@ -66,7 +71,8 @@ class Publics::PostsController < ApplicationController
   def destroy
     @posts = Post.find(params[:id])
     @posts.destroy
-    redirect_to posts_path, notice:"投稿が削除されました。"
+    @end_user = current_end_user
+    redirect_to end_user_path(@end_user.id), notice:"投稿が削除されました。"
   end
 
   def rank

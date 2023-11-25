@@ -6,9 +6,13 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
+  
+  validates :title, presence: true
+  validates :learning_time, presence: true
+  validates :learning_content, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "end_user_id", "id", "learning_content", "learning_time", "title", "updated_at"]
+    ["created_at", "end_user_id", "id", "title", "learning_content", "learning_time", "updated_at"]
   end
 
   def liked?(end_user)

@@ -36,6 +36,7 @@
             </td>
           </tr>
         <% end %>
+        <%= paginate @posts %>
       </table>
     </div>
     <%= render 'publics/posts/rank', end_user: @end_user, post: @post %>

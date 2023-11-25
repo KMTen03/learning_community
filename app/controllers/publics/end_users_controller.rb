@@ -22,8 +22,9 @@ class Publics::EndUsersController < ApplicationController
 
   def likes
     @end_user = EndUser.find(params[:id])
-    likes = Like.where(end_user_id: @end_user.id).pluck(:post_id)
+    likes = Like.where(end_user_id: current_end_user.id).pluck(:post_id)
     @likes_posts = Post.find(likes)
+    @likes_posts = Kaminari.paginate_array(@likes_posts).page(params[:page]).per(5)
   end
 
   def guest_sign_in
