@@ -9,8 +9,8 @@ class EndUser < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   
-  validates :name, presence: true
-  validates :email, uniqueness: {scope: [:end_user_id, :name] }
+
+
   validates :introduce, length: { maximum: 200 }
   
   
