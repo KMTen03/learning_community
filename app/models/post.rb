@@ -36,6 +36,6 @@ class Post < ApplicationRecord
   end
   
   def liked?(end_user)
-    likes.where(end_user_id: end_user_id).exists?
+    likes.where(end_user_id: end_user.id).exists?
   end
 end

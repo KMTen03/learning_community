@@ -41,10 +41,10 @@ class Publics::EndUsersController < ApplicationController
   end
 
   def withdraw
-    @end_user = EndUser.find(params[:id])
+    @end_user = EndUser.find(current_end_user.id)
     @end_user.update(is_deleted: true)
     reset_session
-    redirect_to root_path, notice: '退会処理を実行しました。'
+    redirect_to new_end_user_session_path, notice: '退会処理を実行しました。'
   end
 
   private

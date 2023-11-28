@@ -13,7 +13,7 @@ class EndUser < ApplicationRecord
 
   validates :introduce, length: { maximum: 200 }
   
-  
+  protected
   
   def get_profile_image(width, height)
     unless profile_image.attached?
@@ -29,4 +29,9 @@ class EndUser < ApplicationRecord
       end_user.name = "ゲストさん" 
     end
   end
+  
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+  
 end
