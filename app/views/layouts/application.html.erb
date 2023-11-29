@@ -60,6 +60,11 @@
                 <% end %>
               </li>
               <li>
+                <%= link_to admins_comments_path, class:'btn btn-light' do %>
+                  <i class="fas fa-comment-alt">コメント管理</i>
+                <% end %>
+              </li>
+              <li>
                 <%= link_to destroy_admin_session_path, method: :delete, class:'btn btn-light' do %>
                    <i class="fas fa-sign-out-alt">ログアウト</i>
                 <% end %>

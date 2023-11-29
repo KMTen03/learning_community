@@ -13,7 +13,7 @@ class EndUser < ApplicationRecord
 
   validates :introduce, length: { maximum: 200 }
   
-  protected
+  
   
   def get_profile_image(width, height)
     unless profile_image.attached?

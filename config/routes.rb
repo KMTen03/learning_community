@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   namespace :admins do
     get '/' => 'homes#top', as: 'top'
-    resources :comments, only: [:index, :show, :edit, :update]
+    resources :comments, only: [:index, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
     resources :end_users, only: [:index, :show, :edit, :update]
     resources :tags, only: [:index, :create, :edit, :update, :destroy]

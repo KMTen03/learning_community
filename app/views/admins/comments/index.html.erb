@@ -16,7 +16,11 @@
             <tr>
               <td><%= comment.id %></td>
               <td><%= comment.end_user.name %></td>
-              <td><%= comment.content %></td>
+              <td>
+                <%= link_to admins_comment_path(comment.id) do %>
+                  <%= comment.content %>
+                <% end %>
+              </td>
             </tr>
           <% end %>
         </tbody>

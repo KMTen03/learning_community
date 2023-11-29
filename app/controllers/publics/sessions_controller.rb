@@ -1,6 +1,5 @@
 class Publics::SessionsController < Devise::SessionsController
 
-  protected
   
   def guest_sign_in
     @end_user = EndUser.guest
