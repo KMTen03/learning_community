@@ -27,6 +27,9 @@ def find_or_create_end_user(name)
   end
 end
 
+# tags = %w(TOEIC プログラミング 数学 語学)
+# tags.each { |tag_name| ActsAsTaggableOn::Tag.find_or_create_by(name: tag_name) }
+
 def find_or_create_post
   initial_date = Time.now - (count - 1).days
   
@@ -40,7 +43,7 @@ def find_or_create_post
 
     post_params = {
       title: title,
-      user_id: user.id
+      end_user_id: end_user.id
     }
   
     post = Post.find_or_create_by!(post_params) do |p|
@@ -49,14 +52,8 @@ def find_or_create_post
       p.learning_time = learning_time
       p.created_at = post_date
       p.updated_at = post_date
-      p.tag_list.add(tag_list) 
     end
   
-    puts "Createing post with title: #{title}, end_user_name: #{end_user.name}, tag_list: #{tag_list}"
+    puts "Createing post with title: #{title}, end_user_name: #{end_user.name}"
   end
-end
-  
-EndUser.where.not(account: 'guest').each do |user|
-  statuses = [0] * 12 + [1] * 3 + [2] * 3
-  create_posts_for_user_with_ordered_dates(user, 12, statuses, tags)
 end
