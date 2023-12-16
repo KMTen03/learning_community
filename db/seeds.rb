@@ -9,51 +9,32 @@ Admin.find_or_create_by!(email: "admin@example.com") do |admin|
   admin.password = "password"
 end
 
-def find_or_create_end_user(name)
-  email = "#{name}@example.com"
-  password = "password"
-  introduce = "#{name}です。よろしくお願いします。"
-  min_days_ago = 1
-  max_days_ago = 365
-  random_days_ago = rand(min_days_ago..max_days_ago)
-  random_date = Time.now - random_days_ago.days
-  
-  end_user = EndUser.find_or_create_by!(email: email) do |u|
-    u.name = name
-    u.password = password
-    u.introduce = introduce
-    u.created_at = random_date
-    u.updated_at = random_date
-  end
+olivia = EndUser.find_or_create_by!(email: "olivia@example.com") do |end_user|
+  end_user.name = "Olivia"
+  end_user.password = "olivia1212"
 end
 
-# tags = %w(TOEIC プログラミング 数学 語学)
-# tags.each { |tag_name| ActsAsTaggableOn::Tag.find_or_create_by(name: tag_name) }
-
-def find_or_create_post
-  initial_date = Time.now - (count - 1).days
-  
-  count.times do |i|
-    title = "投稿#{i + 1}"
-    learning_content = "サンプルの投稿#{i + 1}です。適当な文章を入力してください。"
-    learning_time = 3
-    tag_list = tags.sample(2)
-  
-    post_date = initial_date + i.days
-
-    post_params = {
-      title: title,
-      end_user_id: end_user.id
-    }
-  
-    post = Post.find_or_create_by!(post_params) do |p|
-      p.title = title
-      p.learning_content = learning_content
-      p.learning_time = learning_time
-      p.created_at = post_date
-      p.updated_at = post_date
-    end
-  
-    puts "Createing post with title: #{title}, end_user_name: #{end_user.name}"
-  end
+james = EndUser.find_or_create_by!(email: "james@example.com") do |end_user|
+  end_user.name = "James"
+  end_user.password = "james1129"
 end
+
+post1 = Post.find_or_create_by!(title: "リーディング対策") do |post|
+  post.learning_content = "TOEICの700点を目指してます！明日は2章からスタートです。"
+  post.learning_time = "5"
+end
+
+post2 = Post.find_or_create_by!(title: "SPI対策") do |post|
+  post.learning_content = "仕事算から割引料金と精算まで終了。"
+  post.learning_time = "4"
+end
+
+tag1 = Tag.create(tag_name:"資格試験")
+tag2 = Tag.create(tag_name:"TOEIC")
+tag3 = Tag.create(tag_name:"就職試験")
+tag4 = Tag.create(tag_name:"数学")
+
+post1.tags << tag1
+post1.tags << tag2
+post2.tags << tag3
+post3.tags << tag4

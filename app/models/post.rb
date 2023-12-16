@@ -1,5 +1,4 @@
 class Post < ApplicationRecord
-  #validates :learning_time, numericality: { only_integer: true }
 
   belongs_to :end_user
   has_many :comments, dependent: :destroy
