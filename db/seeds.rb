@@ -19,22 +19,25 @@ james = EndUser.find_or_create_by!(email: "james@example.com") do |end_user|
   end_user.password = "james1129"
 end
 
+
 post1 = Post.find_or_create_by!(title: "リーディング対策") do |post|
   post.learning_content = "TOEICの700点を目指してます！明日は2章からスタートです。"
   post.learning_time = "5"
+  post.end_user = olivia
 end
 
 post2 = Post.find_or_create_by!(title: "SPI対策") do |post|
   post.learning_content = "仕事算から割引料金と精算まで終了。"
   post.learning_time = "4"
+  post.end_user = james
 end
 
-tag1 = Tag.create(tag_name:"資格試験")
-tag2 = Tag.create(tag_name:"TOEIC")
-tag3 = Tag.create(tag_name:"就職試験")
-tag4 = Tag.create(tag_name:"数学")
+tag1 = Tag.create(tag_name: "資格試験")
+tag2 = Tag.create(tag_name: "TOEIC")
+tag3 = Tag.create(tag_name: "就職試験")
+tag4 = Tag.create(tag_name: "数学")
 
 post1.tags << tag1
 post1.tags << tag2
 post2.tags << tag3
-post3.tags << tag4
+post2.tags << tag4
