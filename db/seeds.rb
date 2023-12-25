@@ -12,11 +12,13 @@ end
 olivia = EndUser.find_or_create_by!(email: "olivia@example.com") do |end_user|
   end_user.name = "Olivia"
   end_user.password = "olivia1212"
+  end_user.is_deleted = false
 end
 
 james = EndUser.find_or_create_by!(email: "james@example.com") do |end_user|
   end_user.name = "James"
   end_user.password = "james1129"
+  end_user.is_deleted = false
 end
 
 

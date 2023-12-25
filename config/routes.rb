@@ -30,7 +30,6 @@ Rails.application.routes.draw do
       resource :likes, only: [:create, :destroy]
     end
 
-
     resources :end_users, only: [:show, :edit, :update] do
       member do
         get :confirm

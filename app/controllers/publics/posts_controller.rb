@@ -1,27 +1,18 @@
 class Publics::PostsController < ApplicationController
   before_action :authenticate_end_user!
 
-  def new
-  end
-
   def index
     @post = Post.new
     @q = Post.ransack(params[:q])
     @posts = @q.result(distinct: true)
-    
     @end_user = current_end_user
-    
-    @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
-    
-    #@post_like_ranks = Post.get_raning()
-    #@posts = Post.get_post_list(params[:new_post], params[:old_post], params[:tag_id], params[:keyword])
-    
+    @post_like_ranks = Post.get_ranking(@post)
+    # @posts = Post.get_post_list(params[:new_post], params[:old_post], params[:tag_id], params[:keyword])
     if params[:new_post]
       @posts = Post.new_post
     elsif params[:old_post]
       @posts = Post.old_post
     elsif params[:tag_id].present?
-
       @posts = Tag.find(params[:tag_id]).posts
     elsif params[:keyword]
       @posts = @posts.search(params[:keyword])
@@ -45,20 +36,18 @@ class Publics::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-
     @post.end_user_id = current_end_user.id
     if @post.save
       params[:post][:tag_ids]&.each do |tag_id|
       PostTag.create(post_id: @post.id, tag_id: tag_id)
     end
-    
       redirect_to post_path(@post.id), notice:"投稿しました。"
     else
       @end_user = current_end_user
       @posts = Post.all.page(params[:page]).per(5)
       @q = Post.ransack(params[:q])
       @keyword = params[:keyword]
-      @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+      @post_like_ranks = Post.get_ranking(@post)
       render :index, notice:"投稿に失敗しました。"
     end
   end
@@ -85,7 +74,7 @@ class Publics::PostsController < ApplicationController
   end
 
   def rank
-    @post_like_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+    @post_like_ranks = Post.get_ranking(@post)
   end
 
   private

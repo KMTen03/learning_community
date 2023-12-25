@@ -1,14 +1,14 @@
 class Publics::EndUsersController < ApplicationController
+  before_action :is_matching_login_user, only: [:edit, :update, :withdraw]
+  before_action :ensure_guest_user, only: [:edit, :update, :withdraw]
 
   def show
-    @end_user = current_end_user
-    @end_user = EndUser.find(params[:id])
+    @end_user = is_current_end_user
     @posts = @end_user.posts.page(params[:page])
   end
 
   def edit
-    @end_user = current_end_user
-    @end_user = EndUser.find(params[:id])
+    @end_user = is_current_end_user
   end
 
   def update
@@ -27,17 +27,8 @@ class Publics::EndUsersController < ApplicationController
     @likes_posts = Kaminari.paginate_array(@likes_posts).page(params[:page]).per(5)
   end
 
-  def guest_sign_in
-    @end_user = EndUser.guest
-    sign_in end_user
-    redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
-  end
-
   def ranking
-    @end_user_ranks = EndUser.find(EndUserPost.group(:end_user_id).order('count(post_id) desc').limit(10).pluck(:end_user_id))
-  end
-
-  def confirm
+    @end_user_ranks = EndUser.ranking
   end
 
   def withdraw
@@ -46,18 +37,34 @@ class Publics::EndUsersController < ApplicationController
     reset_session
     redirect_to new_end_user_session_path, notice: '退会処理を実行しました。'
   end
+  
+  def guest_sign_in
+    @end_user = EndUser.guest
+    sign_in end_user
+    redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
 
   private
 
   def end_user_params
     params.require(:end_user).permit(:name, :introduce, :profile_image)
   end
-
+  
+  def ensure_guest_user
+   if current_end_user.guest_user?
+     redirect_to root_path, notice: "ゲストユーザーはプロフィール編集できません。"
+   end
+  end
 
   def is_matching_login_user
     @end_user = EndUser.find(params[:id])
-    unless @end_user == current_user
-      redirect_to end_user_path(current_user.id)
+    unless @end_user == current_end_user
+      redirect_to end_user_path(current_end_user.id)
     end
+  end
+  
+  def is_current_end_user
+    @end_user = current_end_user
+    @end_user = EndUser.find(params[:id])
   end
 end

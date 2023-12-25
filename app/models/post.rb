@@ -14,25 +14,25 @@ class Post < ApplicationRecord
     where("title LIKE ? or learning_time LIKE ? or learning_content LIKE ?", "%#{keyword}%", "%#{keyword}%", "%#{keyword}%")
   end
   
-  def self.get_ranking()
+  def self.get_ranking(post)
     find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
   end
   
-  def self.get_post_list(is_new_post, is_old_post, tag_id, keyword)
-    @posts = Post.all
-    if is_new_post
-      @posts = Post.new_post
-    elsif is_old_post
-      @posts = Post.old_post
-    elsif tag_id.present?
-
-      @posts = Tag.find(params[:tag_id]).posts
-    elsif keyword
-      @posts = @posts.search(params[:keyword])
-    end
-
-    return @posts.page(params[:page]).per(5)
-  end
+  # def self.get_post_list(is_new_post, is_old_post, tag_id, keyword)
+  #   @posts = Post.all
+  #   if is_new_post
+  #     @posts = Post.new_post
+  #   elsif is_old_post
+  #     @posts = Post.old_post
+  #   elsif tag_id.present?
+  #     @posts = Tag.find(params[:tag_id]).posts
+  #   elsif keyword
+  #     @posts = @posts.search(params[:keyword])
+  #   else
+  #     @posts = Post.all
+  #   end
+  #   #return @posts = @posts.page(params[:page]).per(5)
+  # end
   
   def liked?(end_user)
     likes.where(end_user_id: end_user.id).exists?
