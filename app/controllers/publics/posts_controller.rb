@@ -82,11 +82,4 @@ class Publics::PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :learning_time, :learning_content)
   end
-
-  def is_matching_login_user
-    @end_user = EndUser.find(params[:id])
-    unless @post.end_user == current_user
-      redirect_to posts_path
-    end
-  end
 end
