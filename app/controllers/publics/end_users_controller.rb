@@ -1,6 +1,7 @@
 class Publics::EndUsersController < ApplicationController
-  before_action :is_matching_login_user, only: [:edit, :update, :withdraw]
   before_action :ensure_guest_user, only: [:edit, :update, :withdraw]
+  before_action :is_matching_login_user, only: [:edit, :update, :withdraw]
+  
 
   def show
     @end_user = is_current_end_user
