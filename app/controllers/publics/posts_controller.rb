@@ -3,23 +3,10 @@ class Publics::PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true)
     @end_user = current_end_user
     @post_like_ranks = Post.get_ranking(@post)
-    # @posts = Post.get_post_list(params[:new_post], params[:old_post], params[:tag_id], params[:keyword])
-    if params[:new_post]
-      @posts = Post.new_post
-    elsif params[:old_post]
-      @posts = Post.old_post
-    elsif params[:tag_id].present?
-      @posts = Tag.find(params[:tag_id]).posts
-    elsif params[:keyword]
-      @posts = @posts.search(params[:keyword])
-    else
-      @posts = Post.all
-    end
-    @posts = @posts.page(params[:page]).per(5)
+    #@post_search = Post.get_post_list
+    @posts = Post.all
     @keyword = params[:keyword] 
   end
 
@@ -30,39 +17,27 @@ class Publics::PostsController < ApplicationController
     @comments = @post.comments.includes(:end_user)
   end
 
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      @post.save_tags(params[:post][:tag])
+      redirect_to root_path, notice:"投稿しました。"
+    else
+      render :index
+    end
+  end
+  
   def edit
     @post = Post.find(params[:id])
   end
-
-  def create
-    @post = Post.new(post_params)
-    @post.end_user_id = current_end_user.id
-    if @post.save
-      params[:post][:tag_ids]&.each do |tag_id|
-      PostTag.create(post_id: @post.id, tag_id: tag_id)
-    end
-      redirect_to post_path(@post.id), notice:"投稿しました。"
-    else
-      @end_user = current_end_user
-      @posts = Post.all.page(params[:page]).per(5)
-      @q = Post.ransack(params[:q])
-      @keyword = params[:keyword]
-      @post_like_ranks = Post.get_ranking(@post)
-      render :index, notice:"投稿に失敗しました。"
-    end
-  end
-
+  
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      @post.post_tags.destroy_all
-      params[:post][:tag_ids]&.each do |tag_id|
-      PostTag.create(post_id: @post.id, tag_id: tag_id)
-    end
-      redirect_to post_path(@post.id), notice:"変更を保存しました。"
+      @post.save_tags(params[:post][:tag])
+      redirect_to post_path(@post)
     else
-      @posts = Post.all
-      render :index, notice:"変更を保存に失敗しました。"
+      render :edit
     end
   end
 
