@@ -1,14 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-        <% if @post.errors.any? %>
-        <ul>
-        <%= @post.errors.count %>errors
-          <% @post.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-        <% end %>
         <h2>投稿内容編集</h2>
         <%= form_with model: @post do |f| %>
           <div class="field">
