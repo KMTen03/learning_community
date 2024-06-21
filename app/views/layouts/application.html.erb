@@ -1,101 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <title>LearningCommunity</title>
+    <meta charset="utf-8">
+    <!--文字化け対策-->
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!--表示領域の設定-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!--Bootstrap CSS-->
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <script src="https://kit.fontawesome.com/ced6f72b76.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/ced6f72b76.js" crossorigin="anonymous"></script>
+    <!--fontawesomeの適用-->
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <title>LearningCommunity</title>
   </head>
 
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-          <a class="navbar-brand" href="/">LOGOS</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!--ナビゲーションバー-->
+      <div class="container">
+        <!--ナビゲーションバーを作成してから枠で囲む-->
+        <a class="navbar-brand" href="/">Title</a>
+        <!--タイトルのリンク-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+            <!--ハンバーガーメニュー部分-->
+            <%= render "layouts/navbar" %>
+            <!--リンク先の部分テンプレート-->
+          </ul>
         </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
-            <% if end_user_signed_in? %>
-              <%= render partial: 'publics/searches/search', search: @search %>
-              <li>
-                <%= link_to posts_path, class:"btn btn-light" do %>
-                  <i class="fas fa-home">ホーム</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to end_user_path(current_end_user), class:'btn btn-light' do %>
-                  <i class="fas fa-id-card">ユーザー情報</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to likes_end_user_path(current_end_user), class:"btn btn-light" do %>
-                  <i class="fas fa-star">お気に入り</i>
-                <% end %>
-              <li>
-                <%= link_to destroy_end_user_session_path, method: :delete, class:'btn btn-light' do %>
-                  <i class="fas fa-sign-out-alt">ログアウト</i>
-                <% end %>
-              </li>
-            <% elsif admin_signed_in? %>
-              <li>
-                <%= link_to admins_posts_path, class:'btn btn-light' do %>
-                  <i class="fas fa-home">ホーム</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to admins_end_users_path, class:'btn btn-light' do %>
-                   <i class="fas fa-users">会員管理</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to admins_tags_path, class:'btn btn-light' do %>
-                  <i class="fas fa-tag">タグ管理</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to admins_comments_path, class:'btn btn-light' do %>
-                  <i class="fas fa-comment-alt">コメント管理</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to destroy_admin_session_path, method: :delete, class:'btn btn-light' do %>
-                   <i class="fas fa-sign-out-alt">ログアウト</i>
-                <% end %>
-              </li>
-            <% else %>
-              <li>
-                <%= link_to new_end_user_registration_path, class:'btn btn-light' do %>
-                   <i class="fas fa-user-plus">新規登録</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to new_end_user_session_path, class:'btn btn-light' do %>
-                  <i class="fas fa-sign-in-alt">ログイン</i>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to end_users_guest_sign_in_path, method: :post, class:'btn btn-light' do %>
-                  <i class="fas fa-street-view">ゲストログインはこちら</i>
-                <% end %>
-              </li>
-              <li>
-                <%= button_to admin_session_path, class:'btn btn-light', method: :post do %>
-                  <i class="fa-solid fa-arrow-right-to-bracket">管理者ログイン</i>
-                <% end %>
-              </li>
-            <% end %>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
