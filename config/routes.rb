@@ -16,18 +16,19 @@ Rails.application.routes.draw do
 
   namespace :admins do
     get '/' => 'homes#top', as: 'top'
-    resources :comments, only: [:index, :show, :edit, :update, :destroy]
-    resources :posts, only: [:index, :show, :edit, :update, :destroy]
-    resources :end_users, only: [:index, :show, :edit, :update]
-    resources :tags, only: [:index, :create, :edit, :update, :destroy]
+    resources :comments, except: %w[new]
+    resources :posts, except: %w[new]
+    resources :end_users, except: %w[new create destroy]
+    resources :tags, except: %w[new show]
   end
 
   scope module: :publics do
     root to: 'posts#index'
     get 'search' => 'searches#search'
-    resources :posts, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
-      resources :comments, only: [:create, :destroy]
-      resource :likes, only: [:create, :destroy]
+    
+    resources :posts do
+      resources :comments, only: %w[create destroy]
+      resource :likes, only: %w[create destroy]
     end
 
     resources :end_users, only: [:show, :edit, :update] do
