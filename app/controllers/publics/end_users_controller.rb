@@ -4,15 +4,15 @@ class Publics::EndUsersController < ApplicationController
   
 
   def show
-    @end_user = is_current_end_user
+    @end_user = is_matching_end_user
     @posts = @end_user.posts.page(params[:page])
   end
 
   def edit
-    @end_user = is_current_end_user
+    @end_user = is_matching_end_user
   end
 
-  def update
+  def update #ユーザー情報更新時
     @end_user = EndUser.find(params[:id])
     if @end_user.update(end_user_params)
       redirect_to end_user_path(@end_user.id)
@@ -21,7 +21,7 @@ class Publics::EndUsersController < ApplicationController
     end
   end
 
-  def likes
+  def likes 
     @end_user = EndUser.find(params[:id])
     likes = Like.where(end_user_id: current_end_user.id).pluck(:post_id)
     @likes_posts = Post.find(likes)
@@ -57,15 +57,10 @@ class Publics::EndUsersController < ApplicationController
    end
   end
 
-  def is_matching_login_user
+  def is_matching_login_user #ログインしているユーザーと同一ユーザーであるか
     @end_user = EndUser.find(params[:id])
     unless @end_user == current_end_user
       redirect_to end_user_path(current_end_user.id)
     end
-  end
-  
-  def is_current_end_user
-    @end_user = current_end_user
-    @end_user = EndUser.find(params[:id])
   end
 end

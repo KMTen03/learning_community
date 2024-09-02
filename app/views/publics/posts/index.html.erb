@@ -26,13 +26,13 @@
                 <% post.tags.each do |tag| %>
                   <%= tag.tag_name %>
                 <% end %>
-              </div>
+              </div><!--col-->
             </td>
           </tr>
         <% end %>
         <%#= paginate @posts %>
       </table>
-    </div>
+    </div><!--col-->
     <%= render 'publics/posts/rank', end_user: @end_user, post: @post %>
   </div><!--row-->
 </div><!--container-->

@@ -12,6 +12,14 @@ class EndUser < ApplicationRecord
 
   validates :introduce, length: { maximum: 200 } # 自己紹介は200文字まで
 
+  def get_profile_image(width, height)
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/profile.jpeg') #app/assets/images/profile.jpeg このファイルから画像を参照
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg',content_type: 'image/jpeg')
+    end
+    profile_image.variant(resize_to_limit: [width, height]).processed
+  end
+
 
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |guest|
@@ -32,14 +40,6 @@ class EndUser < ApplicationRecord
     # limit(10)#最大10個
     # pluck(:user_id)#そして最後に:user_idカラムのみを数字で取り出すように指定。
     # user_idとpost_idがバラバラ、統一するならpost_idでは？
-  end
-    
-  def get_profile_image(width, height)
-    unless profile_image.attached?　# プロフィールイメージが適用されていなければ用意してある画像を適用
-      file_path = Rails.root.join('app/assets/images/profile.jpeg') #app/assets/images/profile.jpeg このファイルから画像を参照
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg',content_type: 'image/jpeg')
-    end
-    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   def active_for_authentication? #ユーザーが退会していないか判別

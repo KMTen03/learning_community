@@ -20,7 +20,7 @@ class Post < ApplicationRecord
     #送信されてきたタグから現在存在するタグを除いたタグをnewとする
     new_tags = tags_list - current_tags 
     #送信されてきたタグから現在存在するタグを除いてoldtagとする
-    p current_tags # ???
+
     
     old_tags.each do |old| #古いタグを消す
       self.tags.delete Tag.find_by(tag_name: old)
