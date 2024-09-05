@@ -2,21 +2,21 @@
   <%= render partial: 'publics/searches/search', search: @search %>
   <li>
     <%= link_to posts_path, class:"btn btn-light" do %>
-      <i class="fas fa-home">ホーム</i>
+      <i class="fas fa-home"></i>
     <% end %>
   </li>
   <li>
     <%= link_to end_user_path(current_end_user), class:'btn btn-light' do %>
-      <i class="fas fa-id-card">ユーザー情報</i>
+      <i class="fas fa-id-card"></i>
     <% end %>
   </li>
   <li>
     <%= link_to likes_end_user_path(current_end_user), class:"btn btn-light" do %>
-      <i class="fas fa-star">お気に入り</i>
+      <i class="fas fa-star"></i>
     <% end %>
   <li>
     <%= link_to destroy_end_user_session_path, method: :delete, class:'btn btn-light' do %>
-      <i class="fas fa-sign-out-alt">ログアウト</i>
+      <i class="fas fa-sign-out-alt"></i>
     <% end %>
   </li>
   <% elsif admin_signed_in? %>
@@ -48,12 +48,12 @@
   <% else %>
   <li>
     <%= link_to new_end_user_registration_path, class:'btn btn-light' do %>
-       <i class="fas fa-user-plus">新規登録</i>
+       <i class="fas fa-user-plus"></i>
     <% end %>
   </li>
   <li>
     <%= link_to new_end_user_session_path, class:'btn btn-light' do %>
-      <i class="fas fa-sign-in-alt">ログイン</i>
+      <i class="fas fa-sign-in-alt"></i>
     <% end %>
   </li>
   <li>
